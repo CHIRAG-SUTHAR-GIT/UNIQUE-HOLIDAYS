@@ -35,10 +35,12 @@ UA = "UniqueHolidays-site-setup/1.0 (static site placeholder images)"
 TARGET_WIDTH = 1600
 
 # Search terms chosen to bias towards wide, recognisable landscape shots.
+# Name the actual place, not the scenery: "beach palm sunset" will happily
+# return a beach on the wrong continent.
 QUERIES = {
     "kashmir":     "Dal Lake Srinagar shikara",
     "kerala":      "Kerala backwaters houseboat Alleppey",
-    "goa":         "Goa beach palm sunset",
+    "goa":         "Palolem Beach Goa India",
     "ladakh":      "Pangong Tso Ladakh landscape",
     "rajasthan":   "Jaisalmer fort Rajasthan desert",
     "andaman":     "Radhanagar Beach Havelock Andaman",
