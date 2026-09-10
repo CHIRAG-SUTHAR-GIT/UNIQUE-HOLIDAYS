@@ -31,10 +31,14 @@ system-font fallback stack.
 
 ## Artwork
 
-There are no stock photos and no external image requests. Every destination image is a
-hand-generated flat-vector SVG in `assets/img/destinations/`, drawn in the same
-illustration style as the logo (18 scenes: beaches, mountains, snow, city skylines,
-heritage domes, karsts, desert dunes, hot-air balloons and backwaters).
+Out of the box there are no stock photos and no external image requests. Every
+destination image is a hand-generated flat-vector SVG in `assets/img/destinations/`,
+drawn in the same illustration style as the logo (18 scenes: beaches, mountains, snow,
+city skylines, heritage domes, karsts, desert dunes, hot-air balloons and backwaters).
+
+These are placeholders. See **Using real photographs** below to swap in real,
+licensed photos with one command — the overlay scrims and text shadows are already
+tuned so captions and prices stay legible over busy photography.
 
 Logo assets were derived from the uploaded PNGs: background removed, trimmed, and
 exported as `logo-mark.png`, `logo-full.png`, favicons and `og-image.png`.
@@ -62,6 +66,55 @@ removed, the pin is released, and all content renders immediately.
 To tune it, the numbers worth touching are the loader `duration` in `motion.js`, the
 word stagger in `splitWords()`, and the card height in `.hscroll__item`.
 
+## Using real photographs
+
+The site ships with the hand-drawn SVG scenes so it looks finished out of the box,
+but it is built to take real photos. `tools/fetch-photos.py` pulls one for each
+destination from **Wikimedia Commons** — no API key, and every file's author and
+licence is recorded for you:
+
+```bash
+python3 tools/fetch-photos.py --dry-run    # see what it will search for
+python3 tools/fetch-photos.py --apply      # download, then point the pages at them
+```
+
+`--apply` swaps `destinations/<slug>.svg` for `destinations/<slug>.jpg` across all
+five pages, updates each `<img>`'s `width`/`height` to the real dimensions so nothing
+shifts on load, and rewrites the alt text from "Illustration of Goa" to "Goa". It
+writes `assets/img/destinations/CREDITS.md` with the author and licence per photo —
+keep that file if you publish the site.
+
+Useful flags:
+
+| Flag | What it does |
+| --- | --- |
+| `--only goa,bali` | just those destinations |
+| `--force` | re-download files that already exist |
+| `--skip-download` | use photos already sitting in the folder |
+| `--dry-run` | print the search terms and stop |
+
+**Using your own photos instead** — this is the path to take when you have real
+photography of your own trips:
+
+```bash
+# save them as assets/img/destinations/<slug>.jpg, then:
+python3 tools/fetch-photos.py --apply --skip-download
+```
+
+The slugs are the eighteen in `QUERIES` at the top of the script: `kashmir`, `kerala`,
+`goa`, `ladakh`, `rajasthan`, `andaman`, `himachal`, `meghalaya`, `dubai`, `maldives`,
+`bali`, `thailand`, `singapore`, `switzerland`, `vietnam`, `turkey`, `europe`,
+`srilanka`. Landscape shots around 1600px wide work best — the cards crop to fill, and
+the text sits over the bottom third, so avoid photos with important detail down there.
+
+If a search returns something unsuitable, edit that destination's term in `QUERIES`
+and re-run with `--only <slug> --force`. Nothing is destructive: the SVGs stay on
+disk, so `git checkout -- *.html` puts the illustrations back.
+
+If you would rather use Unsplash or Pexels, download the files by hand into the same
+folder with the same names and run the `--skip-download` command above — but check
+each service's licence terms before publishing commercially.
+
 ## Running it
 
 ```bash
@@ -86,15 +139,17 @@ Everything below is **placeholder content** and should be replaced with the real
    - `hello@uniqueholidays.com`, `bookings@uniqueholidays.com`
    - `Unique Holidays Travel Desk`, `2nd Floor, Sunrise Arcade, Ring Road`, `Surat, Gujarat 395002, India`
    - the WhatsApp number in every `https://wa.me/919876543210` link
-2. **Figures and claims** — the counters (`12,000+ travellers`, `40+ countries`,
+2. **Photographs** — the destination images are illustrations, not photos of the
+   real places. Run `tools/fetch-photos.py --apply` (see above) or drop your own in.
+3. **Figures and claims** — the counters (`12,000+ travellers`, `40+ countries`,
    `11 yrs`, `4.8★`) and every package price, rating and review count are illustrative.
    Replace them with your real numbers before publishing.
-3. **Testimonials and team** — the four reviews on the home page and the four names on
+4. **Testimonials and team** — the four reviews on the home page and the four names on
    `about.html` are placeholders. Use real, permissioned quotes and real staff names.
-4. **Social links** — the footer icons point at `#`. Add your real profile URLs.
-5. **Map** — `contact.html` has a `<div class="map-embed">` with a `TODO` comment.
+5. **Social links** — the footer icons point at `#`. Add your real profile URLs.
+6. **Map** — `contact.html` has a `<div class="map-embed">` with a `TODO` comment.
    Paste your Google Maps embed `<iframe>` in there.
-6. **Domain** — `index.html` and the other pages carry `https://www.uniqueholidays.com/`
+7. **Domain** — `index.html` and the other pages carry `https://www.uniqueholidays.com/`
    in `<link rel="canonical">` and the structured data. Point these at your real domain.
 
 ## Connecting the forms
@@ -124,6 +179,8 @@ The newsletter form in the footer works the same way (`#newsletterForm` in `main
 ```
 index.html  destinations.html  packages.html  about.html  contact.html
 site.webmanifest
+tools/
+  fetch-photos.py       swap the illustrations for real licensed photos
 assets/
   css/styles.css        design tokens + all components
   css/motion.css        loader, scroll meter, reveals, pinned gallery, night mode
