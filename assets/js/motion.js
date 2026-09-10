@@ -232,6 +232,27 @@
   });
   window.addEventListener("load", function () { measureAll(); requestFrame(); });
 
+  /* ==================================================== page transitions == */
+  /* Fade out before an internal navigation so the next page's curtain picks up
+     from black rather than from a white flash. */
+  if (!reduced) {
+    document.addEventListener("click", function (e) {
+      if (e.defaultPrevented || e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
+      var a = e.target.closest && e.target.closest("a[href]");
+      if (!a || a.target === "_blank" || a.hasAttribute("download")) return;
+      var url;
+      try { url = new URL(a.getAttribute("href"), location.href); } catch (err) { return; }
+      if (url.origin !== location.origin) return;
+      if (url.pathname === location.pathname && url.search === location.search) return; // same page / anchor
+      if (!/\.html?$|\/$/.test(url.pathname)) return;
+      e.preventDefault();
+      doc.classList.add("uh-leaving");
+      setTimeout(function () { location.href = url.href; }, 300);
+    });
+    // a bfcache restore must never leave the page faded out
+    window.addEventListener("pageshow", function () { doc.classList.remove("uh-leaving"); });
+  }
+
   /* ================================================================ loader == */
   function finish() {
     doc.classList.remove("uh-loading");

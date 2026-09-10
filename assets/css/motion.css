@@ -99,11 +99,14 @@ html.is-ready .uh-meter { opacity: 1; }
   writing-mode: vertical-rl; font-size: .58rem; letter-spacing: .22em;
   text-transform: uppercase; color: var(--muted); opacity: .75;
 }
-@media (max-width: 620px) {
-  .uh-meter { left: 6px; gap: 8px; }
-  .uh-meter__track { height: 74px; }
-  .uh-meter__label { display: none; }
-  .uh-meter__num { font-size: .66rem; }
+@media (max-width: 900px) {
+  .uh-meter {
+    left: 0; top: 0; bottom: 0; transform: none;
+    width: 3px; height: 100vh; gap: 0; justify-content: stretch;
+  }
+  .uh-meter__num, .uh-meter__label { display: none; }
+  .uh-meter__track { width: 3px; height: 100%; border-radius: 0; background: transparent; }
+  .uh-meter__fill { border-radius: 0 2px 2px 0; opacity: .85; }
 }
 
 /* -------------------------------------------------------------- reveals -- */
@@ -360,4 +363,169 @@ body, .site-header, .pkg-card, .feature, .info-card, .form-card, .quote,
   .daynight { height: 200vh; }
   .daynight__copy h2 { font-size: 1.6rem; }
   .daynight__swap { min-height: 130px; }
+}
+
+/* ============================================================== ambience == */
+/* Slow drifting cloud bands. Two layers at different speeds and scales give
+   the sky depth without ever pulling the eye away from the copy. */
+.sky-drift {
+  position: absolute; inset: 0; overflow: hidden; pointer-events: none;
+  z-index: 0; opacity: .06; filter: blur(7px);
+}
+.sky-drift span {
+  position: absolute; left: 0; top: var(--y, 14%);
+  width: 240%; height: var(--h, 300px);
+  background: url("../img/clouds.svg") repeat-x 0 0 / auto 100%;
+  animation: uh-drift var(--dur, 190s) linear infinite;
+}
+.sky-drift span:nth-child(2) { --y: 52%; --h: 220px; --dur: 260s; opacity: .6; }
+.sky-drift span:nth-child(3) { --y: 2%;  --h: 160px; --dur: 340s; opacity: .45; }
+@keyframes uh-drift {
+  from { transform: translate3d(0, 0, 0); }
+  to   { transform: translate3d(-41.6667%, 0, 0); }
+}
+
+/* the collage breathes very slowly, like a held shot */
+.collage figure img { animation: uh-breathe 26s ease-in-out infinite alternate; }
+.collage figure:nth-child(2) img { animation-duration: 32s; animation-delay: -6s; }
+.collage figure:nth-child(3) img { animation-duration: 29s; animation-delay: -14s; }
+@keyframes uh-breathe {
+  from { transform: scale(1) translateY(0); }
+  to   { transform: scale(1.06) translateY(-1.5%); }
+}
+
+/* a quiet invitation to keep going */
+.scroll-cue {
+  display: flex; flex-direction: column; align-items: flex-start; gap: 10px;
+  margin-top: 42px; color: rgba(255, 255, 255, .62);
+  font-size: .66rem; letter-spacing: .26em; text-transform: uppercase;
+  font-family: var(--font-head); font-weight: 500;
+}
+.scroll-cue i {
+  width: 1px; height: 46px; background: linear-gradient(180deg, rgba(255,255,255,.5), transparent);
+  position: relative; overflow: hidden;
+}
+.scroll-cue i::after {
+  content: ""; position: absolute; left: 0; top: -50%; width: 100%; height: 50%;
+  background: var(--orange); animation: uh-cue 2.8s var(--ease) infinite;
+}
+@keyframes uh-cue {
+  0%   { transform: translateY(0); opacity: 0; }
+  30%  { opacity: 1; }
+  100% { transform: translateY(300%); opacity: 0; }
+}
+
+/* ---------------------------------------------------------- interlude ---- */
+.chapter {
+  position: relative; overflow: hidden;
+  height: min(94vh, 780px); display: grid; place-items: center;
+  background: var(--navy);
+}
+.chapter__media { position: absolute; inset: -14% 0 -14% 0; z-index: 0; }
+.chapter::before {
+  content: ""; position: absolute; inset: 0; z-index: 2; pointer-events: none;
+  background:
+    linear-gradient(180deg, var(--surface) 0%, rgba(255, 255, 255, 0) 16%),
+    linear-gradient(0deg,   var(--surface-2) 0%, rgba(244, 248, 252, 0) 15%);
+}
+:root[data-theme="night"] .chapter::before {
+  background:
+    linear-gradient(180deg, var(--surface) 0%, rgba(5, 25, 47, 0) 16%),
+    linear-gradient(0deg,   var(--surface-2) 0%, rgba(8, 33, 60, 0) 15%);
+}
+.chapter__media img {
+  width: 100%; height: 100%; object-fit: cover; object-position: 50% 62%;
+  transform: translate3d(0, calc(var(--p, .5) * 7%), 0) scale(calc(1.1 + var(--p, 0) * .07));
+  transform-origin: 50% 50%;
+}
+.chapter::after {
+  content: ""; position: absolute; inset: 0; z-index: 1;
+  background:
+    radial-gradient(70% 60% at 50% 50%, rgba(0, 20, 48, .30), transparent 72%),
+    linear-gradient(180deg, rgba(0, 24, 54, .74) 0%, rgba(0, 22, 50, .42) 45%, rgba(0, 20, 46, .82) 100%);
+}
+.chapter__copy {
+  position: relative; z-index: 3; text-align: center; color: #fff;
+  max-width: 760px; padding-inline: 26px;
+  text-shadow: 0 2px 16px rgba(0, 12, 30, .55);
+}
+.chapter__copy .eyebrow { color: var(--sky); }
+.chapter__copy .eyebrow::before { background: var(--sky); }
+.chapter__copy h2 {
+  color: #fff; font-size: clamp(1.7rem, 4.2vw, 3rem); line-height: 1.22;
+  font-weight: 700; letter-spacing: -.022em; margin-bottom: 18px;
+}
+.chapter__copy p {
+  color: rgba(255, 255, 255, .84); font-size: clamp(1rem, 1.5vw, 1.14rem);
+  max-width: 54ch; margin: 0 auto; line-height: 1.8;
+}
+.chapter__rule {
+  width: 62px; height: 2px; border-radius: 2px; margin: 26px auto 0;
+  background: linear-gradient(90deg, transparent, var(--orange), transparent);
+}
+@media (max-width: 620px) {
+  .chapter { height: min(84vh, 600px); }
+  .chapter__media img { object-position: 50% 56%; }
+  .chapter__copy p { font-size: .98rem; line-height: 1.75; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sky-drift span, .collage figure img, .scroll-cue i::after { animation: none !important; }
+  .chapter__media img { transform: scale(1.05) !important; }
+}
+
+/* ------------------------------------------------------------- nightfall -- */
+/* The page opens in daylight and the day/night set-piece hands over to dusk,
+   so the footer finishes the arc: a night sky to land on. */
+.site-footer {
+  position: relative; overflow: hidden;
+  background:
+    radial-gradient(85% 120% at 50% -30%, #0B4B8F 0%, rgba(11, 75, 143, 0) 62%),
+    var(--navy);
+}
+.site-footer > .container { position: relative; z-index: 2; }
+.site-footer::before {
+  content: ""; position: absolute; inset: 0; z-index: 1; pointer-events: none;
+  background-image:
+    radial-gradient(1.6px 1.6px at 8% 22%,  rgba(255,255,255,.55), transparent 60%),
+    radial-gradient(1.2px 1.2px at 21% 62%, rgba(255,255,255,.35), transparent 60%),
+    radial-gradient(1.8px 1.8px at 34% 14%, rgba(255,255,255,.5),  transparent 60%),
+    radial-gradient(1.1px 1.1px at 47% 48%, rgba(255,255,255,.3),  transparent 60%),
+    radial-gradient(1.5px 1.5px at 58% 20%, rgba(255,255,255,.45), transparent 60%),
+    radial-gradient(1.2px 1.2px at 69% 70%, rgba(255,255,255,.32), transparent 60%),
+    radial-gradient(1.9px 1.9px at 80% 30%, rgba(255,255,255,.5),  transparent 60%),
+    radial-gradient(1.1px 1.1px at 91% 56%, rgba(255,255,255,.3),  transparent 60%),
+    radial-gradient(1.4px 1.4px at 15% 84%, rgba(255,255,255,.28), transparent 60%),
+    radial-gradient(1.3px 1.3px at 63% 88%, rgba(255,255,255,.26), transparent 60%);
+  animation: uh-twinkle 7s ease-in-out infinite alternate;
+}
+@keyframes uh-twinkle {
+  from { opacity: .55; }
+  to   { opacity: 1; }
+}
+/* one slow shooting star, rare enough to feel like luck rather than decoration */
+.site-footer::after {
+  content: ""; position: absolute; top: 14%; left: -12%; z-index: 1;
+  width: 130px; height: 1.5px; border-radius: 2px; opacity: 0;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,.85));
+  transform: rotate(14deg);
+  animation: uh-shoot 17s ease-in infinite;
+}
+@keyframes uh-shoot {
+  0%, 86%  { opacity: 0; transform: translate3d(0, 0, 0) rotate(14deg); }
+  88%      { opacity: .9; }
+  97%, 100%{ opacity: 0; transform: translate3d(78vw, 190px, 0) rotate(14deg); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .site-footer::before { animation: none; opacity: .8; }
+  .site-footer::after  { display: none; }
+}
+
+/* ------------------------------------------------------- page transition -- */
+html.uh-leaving body {
+  opacity: 0;
+  transition: opacity .3s var(--ease);
+}
+@media (prefers-reduced-motion: reduce) {
+  html.uh-leaving body { opacity: 1; transition: none; }
 }

@@ -59,6 +59,10 @@ nothing to install and nothing to load from a CDN.
 | **Pinned horizontal gallery** | The destinations section sticks to the viewport while the card track scrubs sideways — vertical scroll distance is measured to match the track width exactly, so it maps 1:1 and re-measures on resize. |
 | **Day → night set-piece** | A pinned section publishes its scroll progress as a CSS variable (`--p`), which cross-fades the scene from day to night and drives the dial. |
 | **Day/night mode** | The switch in the header repaints the whole site through token overrides on `:root[data-theme="night"]`, and the choice is remembered. `assets/js/boot.js` applies it before first paint so there is no flash. |
+| **Ambient sky** | Three blurred cloud bands drift across the hero on 190–340s loops, and the collage images breathe on a slow scale. Atmosphere, not decoration — they never pull focus from the copy. |
+| **Interlude** | A full-bleed chapter panel between the gallery and the packages, with parallax driven by `--p` and gradients that blend it into the pale sections above and below, so the page reads as one continuous scene. |
+| **Nightfall** | The page opens in daylight, the day/night set-piece hands over to dusk, and the footer lands on a night sky with faint stars and an occasional shooting star. |
+| **Page transitions** | Internal links fade out before navigating so the next page's curtain starts from black instead of a white flash. External links, downloads, in-page anchors and modified clicks are left alone, and a bfcache restore clears the fade. |
 
 Every one of these is disabled under `prefers-reduced-motion: reduce`: the loader is
 removed, the pin is released, and all content renders immediately.
