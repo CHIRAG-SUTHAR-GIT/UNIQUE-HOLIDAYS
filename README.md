@@ -38,8 +38,8 @@ city skylines, heritage domes, karsts, desert dunes, hot-air balloons and backwa
 
 Five destinations now use **real photographs** supplied by the owner — Dubai,
 Maldives, Kerala, Ladakh and Kashmir. They are resized and recompressed for the web
-(cards get ~900px files; Maldives and Ladakh are kept larger because they also serve
-as the full-bleed backdrops of the day/night and interlude sections) and stripped of
+(cards get ~900px files; Ladakh is kept larger because it also serves as the
+full-bleed backdrop of the interlude) and stripped of
 EXIF, including any GPS data. The remaining thirteen destinations still use the
 illustrations. See **Using real photographs** below to replace those too.
 
@@ -60,7 +60,7 @@ nothing to install and nothing to load from a CDN.
 | **Section reveals** | `data-anim="fade-up | fade-left | scale-in | clip-up | clip-side"`, with `data-stagger="90"` on a container to cascade its children. |
 | **Parallax** | `data-parallax="0.35"` drifts an element against the scroll. |
 | **Pinned horizontal gallery** | The destinations section sticks to the viewport while the card track scrubs sideways — vertical scroll distance is measured to match the track width exactly, so it maps 1:1 and re-measures on resize. |
-| **Day → night set-piece** | A pinned section publishes its scroll progress as a CSS variable (`--p`), which cross-fades the scene from day to night and drives the dial. |
+| **Day → night set-piece** | A pinned section publishes its scroll progress as a CSS variable (`--p`), which cross-fades between two photographs of the same place — `assets/img/daynight-day.jpg` and `daynight-night.jpg` — and drives the dial. The scrim eases off as the scene darkens so the night frame is not crushed. To use your own pair, replace those two files with shots taken from the same spot at different times. |
 | **Day/night mode** | The switch in the header repaints the whole site through token overrides on `:root[data-theme="night"]`, and the choice is remembered. `assets/js/boot.js` applies it before first paint so there is no flash. |
 | **Ambient sky** | Three blurred cloud bands drift across the hero on 190–340s loops, and the collage images breathe on a slow scale. Atmosphere, not decoration — they never pull focus from the copy. |
 | **Interlude** | A full-bleed chapter panel between the gallery and the packages, with parallax driven by `--p` and gradients that blend it into the pale sections above and below, so the page reads as one continuous scene. |
