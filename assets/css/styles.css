@@ -147,7 +147,7 @@ ul { margin: 0; padding: 0; list-style: none; }
 .btn-brand { background: var(--grad-brand); color: #fff; box-shadow: 0 12px 26px rgba(11, 132, 222, .3); }
 .btn-brand:hover { color: #fff; }
 
-.btn-outline { border-color: var(--line); color: var(--ink); background: #fff; }
+.btn-outline { border-color: var(--line); color: var(--ink); background: var(--surface); }
 .btn-outline:hover { border-color: var(--blue); color: var(--blue); }
 
 .btn-light { background: rgba(255, 255, 255, .14); color: #fff; border-color: rgba(255, 255, 255, .4); }
@@ -159,7 +159,7 @@ ul { margin: 0; padding: 0; list-style: none; }
 /* ---------------------------------------------------------------- header -- */
 .site-header {
   position: sticky; top: 0; z-index: 100;
-  background: rgba(255, 255, 255, .92);
+  background: var(--header-bg);
   backdrop-filter: blur(12px);
   border-bottom: 1px solid transparent;
   transition: box-shadow .25s var(--ease), border-color .25s var(--ease);
@@ -207,7 +207,7 @@ ul { margin: 0; padding: 0; list-style: none; }
 
 .nav-toggle {
   display: none; width: 46px; height: 46px; border: 1px solid var(--line);
-  background: #fff; border-radius: 13px; cursor: pointer; padding: 0;
+  background: var(--surface); border-radius: 13px; cursor: pointer; padding: 0;
   align-items: center; justify-content: center; flex: none;
 }
 .nav-toggle span {
@@ -310,7 +310,7 @@ ul { margin: 0; padding: 0; list-style: none; }
 /* --------------------------------------------------------- search widget -- */
 .search-wrap { margin-top: -58px; position: relative; z-index: 20; }
 .search-card {
-  background: #fff; border-radius: var(--r-xl); box-shadow: var(--sh-lg);
+  background: var(--surface); border-radius: var(--r-xl); box-shadow: var(--sh-lg);
   padding: 22px; display: grid; gap: 14px;
   grid-template-columns: repeat(4, 1fr) auto; align-items: end;
 }
@@ -322,7 +322,7 @@ ul { margin: 0; padding: 0; list-style: none; }
 .field select, .field input, .field textarea {
   font-family: var(--font-body); font-size: .95rem; color: var(--ink);
   border: 1.5px solid var(--line); border-radius: var(--r-sm);
-  padding: 12px 14px; background: #fff; width: 100%;
+  padding: 12px 14px; background: var(--surface); width: 100%;
   transition: border-color .2s var(--ease), box-shadow .2s var(--ease);
 }
 .field select {
@@ -381,7 +381,7 @@ ul { margin: 0; padding: 0; list-style: none; }
 
 /* package card */
 .pkg-card {
-  background: #fff; border: 1px solid var(--line); border-radius: var(--r-lg);
+  background: var(--surface); border: 1px solid var(--line); border-radius: var(--r-lg);
   overflow: hidden; display: flex; flex-direction: column;
   transition: transform .28s var(--ease), box-shadow .28s var(--ease), border-color .28s var(--ease);
 }
@@ -432,7 +432,7 @@ ul { margin: 0; padding: 0; list-style: none; }
 
 /* feature / value cards */
 .feature {
-  background: #fff; border: 1px solid var(--line); border-radius: var(--r-lg);
+  background: var(--surface); border: 1px solid var(--line); border-radius: var(--r-lg);
   padding: 30px 26px; height: 100%;
   transition: transform .28s var(--ease), box-shadow .28s var(--ease), border-color .28s var(--ease);
 }
@@ -486,7 +486,7 @@ ul { margin: 0; padding: 0; list-style: none; }
 }
 .slide { flex: 0 0 100%; padding: 4px; }
 .quote {
-  background: #fff; border: 1px solid var(--line); border-radius: var(--r-lg);
+  background: var(--surface); border: 1px solid var(--line); border-radius: var(--r-lg);
   padding: clamp(26px, 4vw, 44px); text-align: center; box-shadow: var(--sh-sm);
 }
 .quote .stars { display: inline-flex; gap: 3px; color: var(--orange); margin-bottom: 18px; }
@@ -507,7 +507,7 @@ ul { margin: 0; padding: 0; list-style: none; }
 .slider-nav { display: flex; align-items: center; justify-content: center; gap: 14px; margin-top: 28px; }
 .slider-btn {
   width: 46px; height: 46px; border-radius: 50%; border: 1.5px solid var(--line);
-  background: #fff; color: var(--navy); cursor: pointer; display: grid; place-items: center;
+  background: var(--surface); color: var(--navy); cursor: pointer; display: grid; place-items: center;
   transition: background .2s var(--ease), color .2s var(--ease), border-color .2s var(--ease);
 }
 .slider-btn:hover { background: var(--navy); color: #fff; border-color: var(--navy); }
@@ -527,7 +527,7 @@ ul { margin: 0; padding: 0; list-style: none; }
 .chip {
   font-family: var(--font-head); font-weight: 500; font-size: .88rem;
   padding: 9px 19px; border-radius: var(--r-pill);
-  border: 1.5px solid var(--line); background: #fff; color: var(--body);
+  border: 1.5px solid var(--line); background: var(--surface); color: var(--body);
   cursor: pointer; transition: all .22s var(--ease);
 }
 .chip:hover { border-color: var(--blue); color: var(--blue); }
@@ -566,7 +566,7 @@ ul { margin: 0; padding: 0; list-style: none; }
 /* ------------------------------------------------------------------- faq -- */
 .faq-item {
   border: 1px solid var(--line); border-radius: var(--r-md);
-  background: #fff; margin-bottom: 12px; overflow: hidden;
+  background: var(--surface); margin-bottom: 12px; overflow: hidden;
 }
 .faq-q {
   width: 100%; text-align: left; background: none; border: 0; cursor: pointer;
@@ -600,7 +600,7 @@ ul { margin: 0; padding: 0; list-style: none; }
 
 /* ----------------------------------------------------------------- forms -- */
 .form-card {
-  background: #fff; border: 1px solid var(--line); border-radius: var(--r-xl);
+  background: var(--surface); border: 1px solid var(--line); border-radius: var(--r-xl);
   padding: clamp(24px, 4vw, 40px); box-shadow: var(--sh-md);
 }
 .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
@@ -624,7 +624,7 @@ ul { margin: 0; padding: 0; list-style: none; }
 
 /* -------------------------------------------------------------- contact --- */
 .info-card {
-  background: #fff; border: 1px solid var(--line); border-radius: var(--r-lg);
+  background: var(--surface); border: 1px solid var(--line); border-radius: var(--r-lg);
   padding: 26px; height: 100%;
 }
 .info-card .icon {
@@ -784,7 +784,7 @@ ul { margin: 0; padding: 0; list-style: none; }
 
   .nav {
     position: fixed; inset: 76px 0 auto; margin: 0;
-    background: #fff; border-bottom: 1px solid var(--line);
+    background: var(--surface); border-bottom: 1px solid var(--line);
     box-shadow: var(--sh-md);
     max-height: 0; overflow: hidden; transition: max-height .35s var(--ease);
   }
@@ -800,6 +800,8 @@ ul { margin: 0; padding: 0; list-style: none; }
 @media (max-width: 620px) {
   body { font-size: 16px; }
   .header-actions > .btn-primary { display: none; }
+  .header-phone { display: none; }
+  .header-actions { gap: 8px; }
   .brand img { width: 40px; }
   .brand-name { font-size: 1.12rem; }
   .header-inner { min-height: 68px; gap: 10px; }

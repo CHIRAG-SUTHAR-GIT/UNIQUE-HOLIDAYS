@@ -39,6 +39,29 @@ heritage domes, karsts, desert dunes, hot-air balloons and backwaters).
 Logo assets were derived from the uploaded PNGs: background removed, trimmed, and
 exported as `logo-mark.png`, `logo-full.png`, favicons and `og-image.png`.
 
+## Motion layer
+
+`assets/css/motion.css` + `assets/js/motion.js` add the scroll experience. No GSAP,
+no Lenis, no ScrollTrigger — it is plain rAF and `IntersectionObserver`, so there is
+nothing to install and nothing to load from a CDN.
+
+| Effect | How it works |
+| --- | --- |
+| **Intro curtain** | Navy overlay with the logo, a 0→100 counter and a progress bar, then the screen splits in two and parts sideways to reveal the page. Full length on the first visit of a session, a short version after that (`sessionStorage`). |
+| **Scroll meter** | Fixed left-hand percentage readout (00–100) with a vertical progress bar, updated every frame. |
+| **Headline reveals** | Any `data-split` heading is broken into words, each wrapped in an overflow mask, and the words rise into place on a 55ms stagger. |
+| **Section reveals** | `data-anim="fade-up | fade-left | scale-in | clip-up | clip-side"`, with `data-stagger="90"` on a container to cascade its children. |
+| **Parallax** | `data-parallax="0.35"` drifts an element against the scroll. |
+| **Pinned horizontal gallery** | The destinations section sticks to the viewport while the card track scrubs sideways — vertical scroll distance is measured to match the track width exactly, so it maps 1:1 and re-measures on resize. |
+| **Day → night set-piece** | A pinned section publishes its scroll progress as a CSS variable (`--p`), which cross-fades the scene from day to night and drives the dial. |
+| **Day/night mode** | The switch in the header repaints the whole site through token overrides on `:root[data-theme="night"]`, and the choice is remembered. `assets/js/boot.js` applies it before first paint so there is no flash. |
+
+Every one of these is disabled under `prefers-reduced-motion: reduce`: the loader is
+removed, the pin is released, and all content renders immediately.
+
+To tune it, the numbers worth touching are the loader `duration` in `motion.js`, the
+word stagger in `splitWords()`, and the card height in `.hscroll__item`.
+
 ## Running it
 
 ```bash
@@ -103,7 +126,10 @@ index.html  destinations.html  packages.html  about.html  contact.html
 site.webmanifest
 assets/
   css/styles.css        design tokens + all components
-  js/main.js            nav, reveals, counters, slider, filters, accordion, forms
+  css/motion.css        loader, scroll meter, reveals, pinned gallery, night mode
+  js/boot.js            pre-paint theme + scroll lock (loaded synchronously)
+  js/main.js            nav, counters, slider, filters, accordion, forms
+  js/motion.js          intro, scroll meter, splits, parallax, pinning, day/night
   img/
     logo-mark.png  logo-full.png  swoosh.svg  og-image.png
     favicon.ico  apple-touch-icon.png  icon-192.png  icon-512.png
