@@ -36,11 +36,11 @@ destination image is a hand-generated flat-vector SVG in `assets/img/destination
 drawn in the same illustration style as the logo (18 scenes: beaches, mountains, snow,
 city skylines, heritage domes, karsts, desert dunes, hot-air balloons and backwaters).
 
-Five destinations now use **real photographs** supplied by the owner — Dubai,
-Maldives, Kerala, Ladakh and Kashmir. They are resized and recompressed for the web
+Six destinations now use **real photographs** supplied by the owner — Dubai,
+Maldives, Kerala, Ladakh, Kashmir and Singapore. They are resized and recompressed for the web
 (cards get ~900px files; Ladakh is kept larger because it also serves as the
 full-bleed backdrop of the interlude) and stripped of
-EXIF, including any GPS data. The remaining thirteen destinations still use the
+EXIF, including any GPS data. The remaining twelve destinations still use the
 illustrations. See **Using real photographs** below to replace those too.
 
 Logo assets were derived from the uploaded PNGs: background removed, trimmed, and
@@ -146,7 +146,7 @@ Everything below is **placeholder content** and should be replaced with the real
    - `hello@uniqueholidays.com`, `bookings@uniqueholidays.com`
    - `Unique Holidays Travel Desk`, `2nd Floor, Sunrise Arcade, Ring Road`, `Surat, Gujarat 395002, India`
    - the WhatsApp number in every `https://wa.me/919876543210` link
-2. **Photographs** — thirteen destinations still use illustrations rather than photos
+2. **Photographs** — twelve destinations still use illustrations rather than photos
    of the real places. Check that any photo you add really is of that place: a
    search for scenery rather than a place name returns the right-looking beach on
    the wrong continent. Run `tools/fetch-photos.py --apply` (see above) or drop your
