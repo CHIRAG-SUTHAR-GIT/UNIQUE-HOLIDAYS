@@ -1,0 +1,429 @@
+/* ==========================================================================
+   Unique Holidays — "cute" layer
+   Loaded AFTER styles.css and motion.css, so equal-specificity rules here win.
+
+   Everything in this file is presentation only: softer shapes, candy tints,
+   sticker-style labels, paper/polaroid photo frames and springier hovers.
+   No layout is changed, so the pages keep working with this file removed.
+   ========================================================================== */
+
+/* ------------------------------------------------------- page atmosphere -- */
+
+/* A barely-there polka field. Two offset dot grids read as confetti at a
+   glance but stay quiet enough to put body copy on top of. */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background-image:
+    radial-gradient(circle at 50% 50%, rgba(255, 143, 177, .12) 1.6px, transparent 1.7px),
+    radial-gradient(circle at 50% 50%, rgba(111, 221, 247, .13) 1.6px, transparent 1.7px);
+  background-size: 34px 34px, 34px 34px;
+  background-position: 0 0, 17px 17px;
+}
+
+/* Section wash: swap the old blue/orange radials for a candy set. */
+.section::before {
+  background:
+    radial-gradient(52% 44% at 88% 4%, rgba(168, 142, 240, .07), transparent 62%),
+    radial-gradient(44% 40% at 6% 96%, rgba(255, 143, 177, .07), transparent 64%);
+}
+.section--soft::before {
+  background:
+    radial-gradient(58% 52% at 12% 0%, rgba(111, 221, 247, .13), transparent 62%),
+    radial-gradient(48% 48% at 92% 100%, rgba(255, 201, 92, .13), transparent 64%);
+}
+
+/* ------------------------------------------------------- sticker eyebrow -- */
+
+/* The eyebrow becomes a little peel-and-stick label: chunky white keyline,
+   candy fill, tipped a couple of degrees off true. */
+.eyebrow {
+  background: var(--blush-100);
+  color: #C2456E;
+  border: 2px solid #fff;
+  border-radius: var(--r-pill);
+  padding: 6px 16px 6px 13px;
+  box-shadow: 0 4px 12px rgba(255, 143, 177, .26);
+  transform: rotate(-1.6deg);
+  letter-spacing: .1em;
+  margin-bottom: 18px;
+}
+.eyebrow::before {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--blush);
+}
+.section-head--center .eyebrow { transform: rotate(1.4deg); }
+
+/* ---------------------------------------------------------- squishy CTAs -- */
+
+.btn {
+  font-weight: 700;
+  border-radius: var(--r-pill);
+  transition: transform .3s var(--ease-bounce), box-shadow .3s var(--ease),
+              background .22s var(--ease), color .22s var(--ease),
+              border-color .22s var(--ease);
+}
+.btn:hover { transform: translateY(-3px) scale(1.035); }
+/* the squish — a pressed button should visibly give */
+.btn:active { transform: translateY(0) scale(.96); }
+
+.btn-outline { border-color: var(--line); border-width: 2px; }
+.btn-outline:hover { border-color: var(--blush); color: #C2456E; background: var(--blush-100); }
+
+/* ------------------------------------------------------------ hero magic -- */
+
+/* Soft pastel blobs drifting behind the hero copy. */
+.hero::after {
+  content: "";
+  position: absolute;
+  left: -90px;
+  bottom: -120px;
+  width: 340px;
+  height: 340px;
+  border-radius: 48% 52% 60% 40% / 44% 56% 44% 56%;
+  background: radial-gradient(circle at 34% 34%, rgba(255, 143, 177, .3), transparent 68%);
+  pointer-events: none;
+  animation: uh-blob 15s ease-in-out infinite;
+}
+@keyframes uh-blob {
+  0%, 100% { transform: translate3d(0, 0, 0) rotate(0deg); }
+  50%      { transform: translate3d(26px, -22px, 0) rotate(12deg); }
+}
+
+/* Hand-drawn marker underline beneath the highlighted hero word. */
+.hero h1 em {
+  position: relative;
+  background: linear-gradient(100deg, var(--butter) 10%, var(--sand) 90%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+.hero h1 em::after {
+  content: "";
+  position: absolute;
+  left: -2%;
+  right: -2%;
+  bottom: .04em;
+  height: .17em;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 14' preserveAspectRatio='none'%3E%3Cpath d='M2 9c34-6 70-7 104-4 30 3 58 1 92-3' stroke='%23FFC95C' stroke-width='5' stroke-linecap='round' fill='none' opacity='.85'/%3E%3C/svg%3E") no-repeat center / 100% 100%;
+  pointer-events: none;
+}
+
+.hero-pill {
+  border-radius: var(--r-pill);
+  background: rgba(255, 255, 255, .16);
+  border-color: rgba(255, 255, 255, .3);
+  font-weight: 600;
+}
+.hero-pill b { background: var(--grad-candy); }
+
+/* Collage photos become taped-up polaroids, each tipped a different way. */
+.collage figure {
+  background: #fff;
+  padding: 9px 9px 9px;
+  border-radius: var(--r-md);
+  box-shadow: var(--sh-lg);
+  transition: transform .45s var(--ease-bounce);
+}
+.collage img {
+  border: 0;
+  border-radius: 14px;
+  box-shadow: none;
+}
+.collage .tall   { transform: rotate(-2.2deg); }
+.collage .short:nth-of-type(2) { transform: rotate(2.4deg); }
+.collage .short:nth-of-type(3) { transform: rotate(-1.6deg); }
+/* hover straightens the stack — a small, satisfying "tidy up" */
+.collage figure:hover { transform: rotate(0deg) scale(1.03); z-index: 3; }
+
+.collage figcaption {
+  left: 16px;
+  bottom: 16px;
+  background: #fff;
+  color: var(--navy);
+  border-radius: var(--r-pill);
+  padding: 5px 14px;
+  box-shadow: 0 3px 10px rgba(96, 72, 60, .2);
+  backdrop-filter: none;
+  font-weight: 700;
+}
+
+.hero-badge {
+  border-radius: var(--r-md);
+  background: rgba(255, 255, 255, .14);
+}
+.hero-badge .icon { border-radius: 14px; background: var(--grad-candy); }
+
+/* -------------------------------------------------------- search chunkier -- */
+
+.search-card {
+  border: 3px solid #fff;
+  box-shadow: var(--sh-lg), 0 0 0 1px var(--line-soft);
+}
+.field :is(select, input, textarea) {
+  border-width: 2px;
+  border-radius: var(--r-sm);
+}
+.field :is(select, input, textarea):focus {
+  border-color: var(--blush);
+  box-shadow: 0 0 0 4px rgba(255, 143, 177, .18);
+}
+
+/* ------------------------------------------------------------- the cards -- */
+
+/* Destination tiles: rounder, with a white keyline so they read as stickers
+   sitting on the page rather than windows cut into it. */
+.dest-card {
+  border-radius: var(--r-lg);
+  border: 4px solid #fff;
+  box-shadow: var(--sh-md);
+  transition: transform .45s var(--ease-bounce), box-shadow .45s var(--ease);
+}
+.dest-card:hover { transform: translateY(-6px) rotate(-.8deg); box-shadow: var(--sh-lg); }
+.dest-tag {
+  border-radius: var(--r-pill);
+  transform: rotate(-3deg);
+  box-shadow: 0 3px 9px rgba(96, 72, 60, .22);
+  font-weight: 700;
+}
+.dest-price b { color: var(--butter); }
+
+/* Package cards */
+.pkg-card {
+  border: 2px solid var(--line);
+  border-radius: var(--r-lg);
+  transition: transform .45s var(--ease-bounce), box-shadow .45s var(--ease),
+              border-color .45s var(--ease);
+}
+.pkg-card:hover {
+  transform: translateY(-8px) rotate(.6deg);
+  border-color: var(--blush);
+  box-shadow: var(--sh-lg);
+}
+.pkg-badge { background: var(--grad-candy); transform: rotate(-3deg); border-radius: var(--r-pill); }
+.pkg-rating { border-radius: var(--r-pill); font-weight: 700; }
+.pkg-rating svg { color: var(--butter); }
+.pkg-meta li {
+  border: 1.5px dashed var(--line);
+  background: var(--surface-2);
+  border-radius: var(--r-pill);
+}
+.pkg-foot { border-top-style: dashed; border-top-width: 2px; }
+.price strong { color: var(--orange-600); }
+
+/* Feature + info cards: candy icon tiles that wobble on hover. */
+.feature, .info-card {
+  border: 2px solid var(--line);
+  border-radius: var(--r-lg);
+  transition: transform .45s var(--ease-bounce), box-shadow .45s var(--ease),
+              border-color .45s var(--ease);
+}
+.feature:hover, .info-card:hover {
+  transform: translateY(-7px);
+  border-color: var(--sky);
+  box-shadow: var(--sh-md);
+}
+.feature .icon, .info-card .icon {
+  border-radius: 20px;
+  transition: transform .45s var(--ease-bounce);
+}
+.feature:hover .icon, .info-card:hover .icon { transform: rotate(-9deg) scale(1.08); }
+
+/* Cycle the candy palette so a row of cards never repeats a colour. */
+.feature:nth-child(4n+1) .icon, .info-card:nth-child(4n+1) .icon { background: var(--blush-100);  color: #C2456E; }
+.feature:nth-child(4n+2) .icon, .info-card:nth-child(4n+2) .icon { background: var(--mint-100);   color: #1E8B6C; }
+.feature:nth-child(4n+3) .icon, .info-card:nth-child(4n+3) .icon { background: var(--butter-100); color: #B0761A; }
+.feature:nth-child(4n+4) .icon, .info-card:nth-child(4n+4) .icon { background: var(--lilac-100);  color: #6B49C8; }
+
+/* Numbered steps get the same rounded-tile treatment. */
+.step .num {
+  border-radius: 22px;
+  background: var(--grad-candy);
+  box-shadow: 0 10px 22px rgba(168, 142, 240, .3);
+  transform: rotate(-4deg);
+  transition: transform .45s var(--ease-bounce);
+}
+.step:hover .num { transform: rotate(4deg) scale(1.06); }
+
+/* --------------------------------------------------------------- quotes --- */
+
+.quote {
+  border: 3px solid #fff;
+  border-radius: var(--r-xl);
+  box-shadow: var(--sh-md), 0 0 0 1px var(--line-soft);
+}
+.quote::before { color: var(--blush-100); }
+.quote .stars svg { color: var(--butter); }
+.avatar { background: var(--grad-candy); }
+
+.slider-dots button[aria-selected="true"] { background: var(--blush); }
+.slider-btn { border-width: 2px; }
+.slider-btn:hover { background: var(--blush); border-color: var(--blush); color: #fff; }
+
+/* -------------------------------------------------------------- filters --- */
+
+.chip { border-width: 2px; border-radius: var(--r-pill); font-weight: 600; }
+.chip:hover { border-color: var(--blush); color: #C2456E; background: var(--blush-100); }
+.chip[aria-pressed="true"] {
+  background: var(--grad-candy);
+  border-color: transparent;
+  color: #fff;
+}
+.empty-state { border-width: 2.5px; border-radius: var(--r-lg); }
+
+/* ------------------------------------------------------------------ faq --- */
+
+.faq-item { border: 2px solid var(--line); border-radius: var(--r-md); }
+.faq-item.is-open { border-color: var(--blush); background: var(--blush-100); }
+.faq-q::after { border-color: var(--blush); }
+
+/* ------------------------------------------------------- bands + banners -- */
+
+.stats-band, .cta-band { border-radius: var(--r-xl); }
+.stats-band::before {
+  background: radial-gradient(circle, rgba(255, 143, 177, .34), transparent 68%);
+}
+.cta-band::before {
+  background: radial-gradient(70% 120% at 50% 120%, rgba(255, 201, 92, .3), transparent 66%);
+}
+
+/* A scalloped edge along the top of soft sections — the cutest possible
+   divider, and it costs one gradient. */
+.section--soft { position: relative; }
+.section--soft::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: -13px;
+  height: 14px;
+  background:
+    radial-gradient(circle at 13px 14px, var(--surface-2) 13px, transparent 13.5px)
+    repeat-x 0 0 / 26px 14px;
+  pointer-events: none;
+}
+
+/* -------------------------------------------------- pinned photo gallery -- */
+
+.hscroll__item {
+  border-radius: var(--r-xl);
+  border: 4px solid #fff;
+  box-shadow: var(--sh-md);
+}
+.hscroll__item .hscroll__num {
+  font-family: var(--font-head);
+  font-weight: 800;
+}
+.hscroll__cap span { color: var(--butter); }
+.hscroll__progress span { background: var(--grad-candy); }
+
+/* --------------------------------------------------------------- header --- */
+
+.nav-list a { font-weight: 600; }
+.nav-list a:hover { background: var(--blush-100); color: #C2456E; }
+.nav-list a[aria-current="page"] { background: var(--blush-100); color: #C2456E; }
+.header-phone svg { background: var(--blush-100); color: #C2456E; }
+.nav-toggle { border-width: 2px; border-radius: var(--r-sm); }
+
+.brand img { transition: transform .5s var(--ease-bounce); }
+.brand:hover img { transform: rotate(-8deg) scale(1.08); }
+
+/* --------------------------------------------------------------- footer --- */
+
+.socials a { border-radius: 14px; transition: transform .3s var(--ease-bounce), background .22s var(--ease); }
+.socials a:hover { background: var(--grad-candy); transform: translateY(-3px) rotate(-8deg); }
+.newsletter input { border-width: 2px; }
+.newsletter input:focus { border-color: var(--blush); }
+.newsletter-msg { color: var(--butter); }
+.footer-col a:hover, .footer-contact a:hover, .footer-bottom a:hover { color: var(--butter); }
+.footer-contact svg { color: var(--blush); }
+
+/* floating actions bob gently so they stay noticeable without shouting */
+.float-actions a {
+  transition: transform .35s var(--ease-bounce), box-shadow .3s var(--ease);
+}
+.float-actions a:hover { transform: scale(1.14) rotate(-8deg); }
+.float-call { background: var(--grad-candy); }
+
+/* ---------------------------------------------------------------- forms --- */
+
+.form-card { border: 3px solid #fff; box-shadow: var(--sh-md), 0 0 0 1px var(--line-soft); }
+.tick-list li::before { background: var(--mint-100); }
+.tick-list li::after { border-color: #1E8B6C; }
+.consent input { accent-color: var(--blush); }
+.split img { border-radius: var(--r-xl); border: 5px solid #fff; box-shadow: var(--sh-lg); }
+.map-embed { border-width: 2px; border-radius: var(--r-lg); }
+
+/* ------------------------------------------------------------ night mode -- */
+
+/* The candy tints are near-white, so they have to be re-cut for the dark
+   theme or every icon tile turns into a glare patch. */
+:root[data-theme="night"] {
+  --page:        #05192F;
+  --blush-100:   rgba(255, 143, 177, .16);
+  --mint-100:    rgba(79, 207, 171, .16);
+  --butter-100:  rgba(255, 201, 92, .16);
+  --lilac-100:   rgba(168, 142, 240, .18);
+  --line:        rgba(255, 255, 255, .14);
+}
+:root[data-theme="night"] body::before { opacity: .45; }
+:root[data-theme="night"] .eyebrow { color: #FFB6CC; border-color: rgba(255, 255, 255, .14); }
+:root[data-theme="night"] .nav-list a:hover,
+:root[data-theme="night"] .nav-list a[aria-current="page"],
+:root[data-theme="night"] .chip:hover,
+:root[data-theme="night"] .btn-outline:hover { color: #FFB6CC; }
+:root[data-theme="night"] .header-phone svg { color: #FFB6CC; }
+:root[data-theme="night"] .feature:nth-child(4n+1) .icon, :root[data-theme="night"] .info-card:nth-child(4n+1) .icon { color: #FFB6CC; }
+:root[data-theme="night"] .feature:nth-child(4n+2) .icon, :root[data-theme="night"] .info-card:nth-child(4n+2) .icon { color: #7FE6C8; }
+:root[data-theme="night"] .feature:nth-child(4n+3) .icon, :root[data-theme="night"] .info-card:nth-child(4n+3) .icon { color: #FFD98A; }
+:root[data-theme="night"] .feature:nth-child(4n+4) .icon, :root[data-theme="night"] .info-card:nth-child(4n+4) .icon { color: #C6B4FF; }
+:root[data-theme="night"] .faq-item.is-open { background: rgba(255, 143, 177, .1); }
+:root[data-theme="night"] :is(.collage figure, .dest-card, .hscroll__item, .quote, .search-card, .form-card, .split img) {
+  border-color: rgba(255, 255, 255, .12);
+}
+:root[data-theme="night"] .collage figcaption { background: #0B2540; color: var(--ink); }
+:root[data-theme="night"] .tick-list li::after { border-color: #7FE6C8; }
+
+/* ------------------------------------------------------- reduced motion --- */
+
+@media (prefers-reduced-motion: reduce) {
+  .hero::after { animation: none; }
+  /* keep the tilts — they are static decoration, not movement — but stop
+     anything that changes on interaction from jumping */
+  .btn:hover, .dest-card:hover, .pkg-card:hover,
+  .feature:hover, .info-card:hover, .collage figure:hover,
+  .float-actions a:hover, .socials a:hover, .brand:hover img {
+    transform: none;
+  }
+}
+
+/* ------------------------------------------------------------ small view -- */
+
+@media (max-width: 620px) {
+  /* rotations eat horizontal room on a narrow screen */
+  .collage .tall, .collage .short:nth-of-type(2), .collage .short:nth-of-type(3) { transform: none; }
+  .dest-card, .hscroll__item { border-width: 3px; }
+  .eyebrow { transform: none; }
+}
+
+/* ------------------------------------------------------- photo framing -- */
+
+/* The shared `object-position: 50% 64%` suits a wide landscape frame, but
+   several of these photographs put their subject well below centre (or are
+   portrait crops shown in a landscape tile) and end up as a card of empty
+   sky. These are tuned per photo and apply wherever the file is used. */
+:is(.dest-card, .hscroll__item, .pkg-media, .chapter__media, .collage figure) img[src*="himachal"] { object-position: 50% 86%; }
+:is(.dest-card, .hscroll__item, .pkg-media, .chapter__media, .collage figure) img[src*="ladakh"] { object-position: 50% 78%; }
+:is(.dest-card, .hscroll__item, .pkg-media, .chapter__media, .collage figure) img[src*="andaman"] { object-position: 50% 74%; }
+:is(.dest-card, .hscroll__item, .pkg-media, .chapter__media, .collage figure) img[src*="goa"] { object-position: 50% 58%; }
+:is(.dest-card, .hscroll__item, .pkg-media, .chapter__media, .collage figure) img[src*="europe"] { object-position: 50% 70%; }
+:is(.dest-card, .hscroll__item, .pkg-media, .chapter__media, .collage figure) img[src*="switzerland"] { object-position: 50% 58%; }
+:is(.dest-card, .hscroll__item, .pkg-media, .chapter__media, .collage figure) img[src*="srilanka"] { object-position: 50% 56%; }
+:is(.dest-card, .hscroll__item, .pkg-media, .chapter__media, .collage figure) img[src*="rajasthan"] { object-position: 50% 54%; }
+:is(.dest-card, .hscroll__item, .pkg-media, .chapter__media, .collage figure) img[src*="turkey"] { object-position: 50% 52%; }
+:is(.dest-card, .hscroll__item, .pkg-media, .chapter__media, .collage figure) img[src*="meghalaya"] { object-position: 50% 50%; }

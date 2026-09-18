@@ -1,53 +1,71 @@
 /* ==========================================================================
    Unique Holidays — design system
-   Palette sampled directly from the brand logo:
-   navy #002352 · blue #0080D8 · sky #29CFFD · orange #FE9D38
+   Palette sampled from the brand logo, then sweetened a shade for the
+   soft/rounded "cute" treatment:
+   blueberry #1F3C72 · blue #3B8FE3 · sky #6FDDF7 · apricot #FFA85C
+   plus a candy set — blush, mint, butter, lilac — used for tints only.
    ========================================================================== */
 
 /* ---------------------------------------------------------------- tokens -- */
 :root {
-  --navy:        #002352;
-  --navy-800:    #04264F;
-  --navy-600:    #0B4B8F;
-  --blue:        #0080D8;
-  --blue-400:    #29A9F0;
-  --sky:         #29CFFD;
-  --sky-100:     #E4F6FE;
-  --orange:      #FE9D38;
-  --orange-600:  #F2733C;
-  --sand:        #FFE3B0;
+  --navy:        #1F3C72;
+  --navy-800:    #24406F;
+  --navy-600:    #2F63AE;
+  --blue:        #2F88DE;
+  --blue-400:    #5FB6F3;
+  --sky:         #6FDDF7;
+  --sky-100:     #E8F8FE;
+  --orange:      #FFA85C;
+  --orange-600:  #FB8460;
+  --sand:        #FFE7C2;
 
-  --ink:         #0E1B2C;
-  --body:        #46586E;
-  --muted:       #6B7C92;
-  --line:        #E3EAF2;
-  --line-soft:   #EEF3F8;
+  /* candy accents — tints and stickers, never body copy */
+  --blush:       #FF8FB1;
+  --blush-100:   #FFEEF3;
+  --mint:        #4FCFAB;
+  --mint-100:    #E6FAF3;
+  --butter:      #FFC95C;
+  --butter-100:  #FFF5DC;
+  --lilac:       #A88EF0;
+  --lilac-100:   #F2EDFF;
+
+  --ink:         #22304A;
+  --body:        #55687F;
+  --muted:       #7A8AA0;
+  --line:        #EBE4E0;
+  --line-soft:   #F5F0EC;
   --surface:     #FFFFFF;
-  --surface-2:   #F4F8FC;
+  --surface-2:   #FFF6F0;
+  --page:        #FFFCFA;
 
   --grad-brand:  linear-gradient(135deg, var(--blue) 0%, var(--sky) 100%);
   --grad-warm:   linear-gradient(135deg, var(--orange) 0%, var(--orange-600) 100%);
-  --grad-deep:   linear-gradient(150deg, var(--navy) 0%, var(--navy-600) 62%, #0B6FB8 100%);
+  --grad-deep:   linear-gradient(150deg, var(--navy) 0%, var(--navy-600) 60%, #4E9FE0 100%);
+  --grad-candy:  linear-gradient(135deg, var(--blush) 0%, var(--lilac) 100%);
 
-  --r-sm: 10px;
-  --r-md: 16px;
-  --r-lg: 24px;
-  --r-xl: 34px;
+  /* pillowy corners — the single biggest lever on how soft the page reads */
+  --r-sm: 14px;
+  --r-md: 22px;
+  --r-lg: 30px;
+  --r-xl: 42px;
   --r-pill: 999px;
 
-  --sh-sm: 0 1px 2px rgba(0, 35, 82, .05), 0 3px 10px rgba(0, 35, 82, .045);
-  --sh-md: 0 2px 6px rgba(0, 35, 82, .05), 0 12px 34px rgba(0, 35, 82, .085);
-  --sh-lg: 0 6px 18px rgba(0, 35, 82, .07), 0 30px 70px rgba(0, 35, 82, .13);
-  --sh-cta: 0 12px 28px rgba(242, 115, 60, .32);
+  /* shadows tinted warm so nothing looks like a hard drop shadow */
+  --sh-sm: 0 2px 4px rgba(96, 72, 60, .04), 0 4px 14px rgba(96, 72, 60, .05);
+  --sh-md: 0 3px 8px rgba(96, 72, 60, .05), 0 14px 38px rgba(96, 72, 60, .09);
+  --sh-lg: 0 8px 22px rgba(96, 72, 60, .07), 0 34px 74px rgba(96, 72, 60, .14);
+  --sh-cta: 0 12px 28px rgba(251, 132, 96, .34);
 
   --container: 1180px;
   --gutter: 22px;
 
-  --font-head: "Poppins", "Segoe UI", system-ui, -apple-system, sans-serif;
-  --font-body: "Inter", "Segoe UI", system-ui, -apple-system, sans-serif;
+  --font-head: "Baloo 2", "Poppins", "Segoe UI", system-ui, -apple-system, sans-serif;
+  --font-body: "Nunito", "Inter", "Segoe UI", system-ui, -apple-system, sans-serif;
 
   --ease: cubic-bezier(.22, .8, .26, 1);
   --ease-soft: cubic-bezier(.33, .72, .24, 1);
+  /* overshoots slightly — the bounce that makes hovers feel playful */
+  --ease-bounce: cubic-bezier(.34, 1.56, .64, 1);
 }
 
 /* ------------------------------------------------------------------ base -- */
@@ -63,25 +81,30 @@ body {
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
   color: var(--body);
-  background: var(--surface);
+  background: var(--page);
   overflow-x: hidden;
 }
 
+/* Baloo 2 is a rounded display face: it carries tall ascenders and needs a
+   touch more leading and no negative tracking, or it reads cramped. */
 h1, h2, h3, h4, h5 {
   font-family: var(--font-head);
   color: var(--ink);
-  line-height: 1.18;
+  line-height: 1.26;
   margin: 0 0 .5em;
-  letter-spacing: -.02em;
+  letter-spacing: -.005em;
   font-weight: 700;
 }
-h1 { font-size: clamp(2.3rem, 5vw, 3.9rem); font-weight: 800; letter-spacing: -.028em; }
-h2 { font-size: clamp(1.9rem, 3.5vw, 3rem); font-weight: 800; letter-spacing: -.026em; }
-h3 { font-size: clamp(1.16rem, 1.8vw, 1.42rem); letter-spacing: -.014em; }
+h1 { font-size: clamp(2.3rem, 5vw, 3.9rem); font-weight: 800; letter-spacing: -.012em; }
+h2 { font-size: clamp(1.9rem, 3.5vw, 3rem); font-weight: 800; letter-spacing: -.01em; }
+h3 { font-size: clamp(1.16rem, 1.8vw, 1.42rem); letter-spacing: 0; }
 p  { margin: 0 0 1rem; }
 a  { color: var(--blue); text-decoration: none; transition: color .2s var(--ease); }
 a:hover { color: var(--orange-600); }
-img, svg { max-width: 100%; display: block; }
+/* height:auto is load-bearing — without it an <img> that carries width/height
+   attributes keeps the attribute height as a presentational hint while an
+   author rule overrides the width, and the picture renders stretched. */
+img, svg { max-width: 100%; height: auto; display: block; }
 ul { margin: 0; padding: 0; list-style: none; }
 
 :focus-visible {
